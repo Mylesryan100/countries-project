@@ -4,6 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rest Countries Project</title>
 
     <link
       rel="stylesheet"
@@ -13,12 +14,14 @@
       referrerpolicy="no-referrer"
     />
 
+     <script src="https://cdn.tailwindcss.com"></script>
+
     <script type="module" src="./src/script.js" defer></script>
-    <title>Document</title>
   </head>
-  <body>
-    <header>
-      <h1>Where in the world?</h1>
+
+  <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <header class="flex justify-between items-center p-4 shadow-md bg-white dark:bg-gray-800">
+       <h1 class="text-xl font-bold">Where in the world?</h1>
 
       <div>
         <i class="fa-solid fa-moon"></i>
@@ -41,15 +44,21 @@
      </select>
    </div>
 
-    <div id="card-template" style="display: none;">
-        <img src="" alt="">
-        <h2>Name</h2>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+    <template id="card-template">
+      <div id="card" class="card bg-white dark:bg-gray-800 rounded-lg shadow hover:scale-105 transition-transform duration-200 overflow-hidden cursor-pointer">
+        <a href="">
+          <img src="" alt="" class="w-full h-40 object-cover" />
+          <div class="p-4"></div>
+          <h2></h2>
+          <ul>
+            <li id="population"></li>
+            <li id="region"></li>
+            <li id="capital"></li>
+          </ul>
+        </a>
+      </div>
+    </template>
+
    <div id="countries"></div>
   </body>
 </html>
