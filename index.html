@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rest Countries Project</title>
 
-    <link
+    <!--<link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
       integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      referrerpolicy="no-referrer"-->
     />
+      <link rel="stylesheet" href="">
 
      <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,10 +24,14 @@
     <header class="flex justify-between items-center p-4 shadow-md bg-white dark:bg-gray-800">
        <h1 class="text-xl font-bold">Where in the world?</h1>
 
-      <div>
-        <i class="fa-solid fa-moon"></i>
-        Dark Mode
-      </div>
+        <button
+        id="theme-toggle"
+        class="flex items-center gap-2 text-sm focus:outline-none"
+        aria-label="Toggle dark mode"
+       >
+         <i class="fa-solid fa-moon"></i>
+        <span id="theme-label">Dark Mode</span>
+      </button>
     </header>
 
    <div>
@@ -49,16 +54,14 @@
         <a href="">
           <img src="" alt="" class="w-full h-40 object-cover" />
           <div class="p-4"></div>
-          <h2></h2>
-          <ul>
-            <li id="population"></li>
-            <li id="region"></li>
-            <li id="capital"></li>
-          </ul>
-        </a>
+          <h2 class="country-name font-bold text-lg mb-2"></h2>
+          <p class="country-population text-sm"></p>
+          <p class="country-region text-sm"></p>
+          <p class="country-capital text-sm"></p>
+        </div>
       </div>
     </template>
 
-   <div id="countries"></div>
+   <main id="countries" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 p-4"></main>
   </body>
 </html>
