@@ -2,7 +2,7 @@
 const countryContainer = document.getElementById("country-details");
 const themeToggle = document.getElementById("theme-toggle");
 const themeLabel = document.getElementById("theme-label");
-
+// This section will provide the saved theme
 function applySavedTheme() {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
@@ -39,18 +39,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     console.log(` Fetching details for: ${name}`);
-    const res = await fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
+    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital");
     if (!res.ok) throw new Error("Error fetching country details");
     const [country] = await res.json();
     console.log(" Country data received:", country.name.common);
     renderCountry(country);
-
+// This section will handle the border countries
     if (country.borders) {
      const borderContainer = document.getElementById("borders");
      const borderPromises = country.borders.map((code) =>
-       fetch(`https://restcountries.com/v3.1/alpha/${code}?fields=name`).then((res) => res.json())
+       fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital").then((res) => res.json())
      );
-
+     
      const borders = await Promise.all(borderPromises);
       borderContainer.innerHTML = `
         <strong>Border Countries:</strong> 
@@ -75,4 +75,53 @@ document.addEventListener("DOMContentLoaded", async () => {
      countryContainer.textContent = "Error loading country details.";
    }
  });
+// This section renders the country function
+ function renderCountry(country) {
+  console.log("Rendering country details for:", country.name.common);
+
+  const nativeName =
+    country.name.nativeName
+      ? Object.values(country.name.nativeName)[0].common
+      : country.name.common;
+
+  const currencies = country.currencies
+    ? Object.values(country.currencies)
+        .map((c) => c.name)
+        .join(", ")
+    : "N/A";
+
+  const languages = country.languages
+    ? Object.values(country.languages).join(", ")
+    : "N/A";
+  const capital = country.capital ? country.capital[0] : "N/A";
+
+   countryContainer.innerHTML = `
+    <button
+      onclick="window.location.href='../../index.html'"
+      class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded mb-6 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+    >
+      ← Back
+    </button>
+
+    <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+      <img
+        src="${country.flags.svg}"
+        alt="Flag of ${country.name.common}"
+        class="w-80 h-52 object-cover rounded shadow"
+      />
+      <div>
+        <h2 class="text-2xl font-bold mb-4">${country.name.common}</h2>
+        <p><strong>Native Name:</strong> ${nativeName}</p>
+        <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+        <p><strong>Region:</strong> ${country.region}</p>
+        <p><strong>Subregion:</strong> ${country.subregion || "N/A"}</p>
+        <p><strong>Capital:</strong> ${capital}</p>
+        <p><strong>Languages:</strong> ${languages}</p>
+        <p><strong>Currencies:</strong> ${currencies}</p>
+        <div id="borders" class="mt-4 flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+  `;
+  console.log(" Finished rendering:", country.name.common);
+}
 
