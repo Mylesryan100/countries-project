@@ -130,3 +130,18 @@ searchInput?.addEventListener("input", (e) => {
 console.log(` ${filtered.length} results found`);
 displayCountries(filtered);
 });
+
+regionSelect?.addEventListener("change", (e) => {
+  const region = e.target.value;
+  console.log(" Filtering by region:", region || "All regions");
+
+if (!region) {
+    displayCountries(allCountries);
+  } else {
+    const filtered = allCountries.filter(
+      (country) => country.region.toLowerCase() === region.toLowerCase()
+    );
+    console.log(` ${filtered.length} countries match the region ${region}`);
+    displayCountries(filtered);
+  }
+});
