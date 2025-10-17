@@ -70,7 +70,7 @@ if (themeToggle) {
     if (themeLabel) themeLabel.textContent = isDark ? "Light Mode" : "Dark Mode";
 });
 }
-
+// This section is for loading the homepage
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM fully loaded");
   if (window.location.pathname.includes("index.html") || window.location.pathname.endsWith("/")) {
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (name) fetchCountryDetails(name);
   }
 });
-
+// This sections fetches all countries and their info
 async function loadAllCountries() {
   try {
     countriesDiv.innerHTML = `<p class="text-gray-500 text-center"> Loading countries...</p>`;
@@ -95,7 +95,7 @@ async function loadAllCountries() {
     countriesDiv.innerHTML = `<p class="text-red-500 text-center">Failed to load countries 😞</p>`;
   }
 }
-
+// This section will allow the country cards to be displayed
 function displayCountries(countries) {
   console.log(`🧩 Rendering ${countries.length} country cards`);
   countriesDiv.innerHTML = "";
@@ -118,6 +118,15 @@ function displayCountries(countries) {
     cap.textContent = `Capital: ${country.capital ? country.capital[0] : "N/A"}`;
     countriesDiv.appendChild(card);
   });
-  
-  console.log("✅ Finished rendering all cards");
+
+  console.log(" Finished rendering all cards");
 }
+// this section is for the search functions functionality
+searchInput?.addEventListener("input", (e) => {
+  console.log("Searching for:", query);
+  const filtered = allCountries.filter((country) =>
+    country.name.common.toLowerCase().includes(query)
+);
+console.log(` ${filtered.length} results found`);
+displayCountries(filtered);
+});
