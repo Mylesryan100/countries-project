@@ -1,5 +1,5 @@
 
-
+// These are the element selectors
 const countriesDiv = document.getElementById("countries");
 const cardTemplate = document.getElementById('card-template')
 const searchInput = document.getElementById("search-input");
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
   })
 });
-
+// This section is for all the functionality for Theme Handling
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
   document.documentElement.classList.add("dark")
@@ -67,19 +67,31 @@ if (themeToggle) {
     document.documentElement.classList.toggle("dark");
     const isDark = document.documentElement.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
-    if (themeLabel) themeLabel.textContent = "Dark Mode";
+    if (themeLabel) themeLabel.textContent = isDark ? "Light Mode" : "Dark Mode";
 });
 }
 
-document.addEventListener
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM fully loaded");
+  if (window.location.pathname.includes("index.html") || window.location.pathname.endsWith("/")) {
+    await loadAllCountries();
+  } else if (window.location.pathname.includes("index.html")) {
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    if (name) fetchCountryDetails(name);
+  }
+});
 
-
-
-
-
-
-
-
-
-
-
+async function loadAllCountries() {
+  try {
+    countriesDiv.innerHTML = `<p class="text-gray-500 text-center"> Loading countries...</p>`;
+    const res = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital");
+    if (!res.ok) throw new Error("Error fetching data");
+    allCountries = await res.json();
+    console.log(`Successfully fetched ${allCountries.length} countries`);
+    displayCountries(allCountries);
+  } catch (error) {
+    console.error("Error fetching country data:", error);
+    countriesDiv.innerHTML = `<p class="text-red-500 text-center">Failed to load countries 😞</p>`;
+  }
+}
