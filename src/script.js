@@ -95,3 +95,29 @@ async function loadAllCountries() {
     countriesDiv.innerHTML = `<p class="text-red-500 text-center">Failed to load countries 😞</p>`;
   }
 }
+
+function displayCountries(countries) {
+  console.log(`🧩 Rendering ${countries.length} country cards`);
+  countriesDiv.innerHTML = "";
+
+  countries.forEach((country) => {
+    console.log("🗺️ Rendering:", country.name.common);
+    const card = cardTemplate.content.cloneNode(true);
+    const link = card.querySelector("a");
+    const img = card.querySelector("img");
+    const name = card.querySelector("h2");
+    const pop = card.querySelector(".population");
+    const reg = card.querySelector(".region");
+    const cap = card.querySelector(".capital");
+    link.href = `./src/pages/details.html?name=${country.name.common}`;
+    img.src = country.flags.png;
+    img.alt = `Flag of ${country.name.common}`;
+    name.textContent = country.name.common;
+    pop.textContent = `Population: ${country.population.toLocaleString()}`;
+    reg.textContent = `Region: ${country.region}`;
+    cap.textContent = `Capital: ${country.capital ? country.capital[0] : "N/A"}`;
+    countriesDiv.appendChild(card);
+  });
+  
+  console.log("✅ Finished rendering all cards");
+}
