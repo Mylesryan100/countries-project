@@ -130,7 +130,7 @@ searchInput?.addEventListener("input", (e) => {
 console.log(` ${filtered.length} results found`);
 displayCountries(filtered);
 });
-
+// This section is for filtering by region
 regionSelect?.addEventListener("change", (e) => {
   const region = e.target.value;
   console.log(" Filtering by region:", region || "All regions");
@@ -145,3 +145,26 @@ if (!region) {
     displayCountries(filtered);
   }
 });
+
+async function fetchCountryDetails(name) {
+  try {
+    console.log(` Fetching detailed info for: ${name}`);
+    const res = await fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
+    const data = await res.json();
+    console.log(" Received details for", country.name.common);
+    renderCountryDetails(country);
+
+
+    if (country.borders) {
+      console.log(` ${Country.name.common} has ${country.borders.length} border countries`);
+      const bordersContainer = document.getElementById("borders");
+
+      const borderPromises = country.borders.map((code) +>
+        fetch(`https://restcountries.com/v3.1/alpha/${code}?fields=name`).then((r) => r.json())
+      );
+        
+
+
+    }
+  }
+}
