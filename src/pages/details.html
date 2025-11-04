@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Country Details</title>
 
+    <link rel="stylesheet" href="style.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script type="module" src="../pages/details.js" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
     <header class="flex-justify-between items-center p-4 shadow-md bg-white dark:bg-gray-800">
-        <h1 class="text-lg font-semibold">Where in the world?</h1>
+        <h1 class="text-lg font-semibold">Where in the world?</h1> 
 
         <button id="theme-toggle" class="flex items-center gap-2" aria-label="Toggle dark mode">
             <i class="fa-solid fa-moon" alt="Dark mode icon" class="w-5 h-5">
@@ -19,11 +21,8 @@
             </button>
     </header>
 
-    <main id="country-details" class="p-6 max-w-6x1 mx-auto">
-
-      <div class="text-center mt-10 text-gray-500">
-        Loading country details..
-      </div>
+     <main id="details" class="p-8 max-w-6xl mx-auto">
+      <p class="text-center text-gray-500 dark:text-gray-400">Loading country details...</p>
     </main>
-</body>
+  </body>
 </html>
