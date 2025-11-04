@@ -14,7 +14,7 @@ const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
   document.documentElement.classList.add("dark");
   if (themeLabel) themeLabel.textContent = "Light Mode";
-  console.log("🌙 Dark mode enabled from localStorage");
+  console.log(" Dark mode enabled from localStorage");
 } else {
   document.documentElement.classList.remove("dark");
   if (themeLabel) themeLabel.textContent = "Dark Mode";
